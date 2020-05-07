@@ -76,6 +76,7 @@ function showTrueAnswer(){
 	});
 }
 function chooseAnswer(x){
+	document.addEventListener("click",handler,true);
 	$(x).css("background-color","orange");
 	document.getElementById("timeMusic").pause();
 	clearInterval(myTimer);
@@ -97,6 +98,7 @@ function chooseAnswer(x){
 }
 function nextQuestion(){
 	if(chapter<4){
+		document.removeEventListener('click', handler,true);
 		time = 20;
 		chapter++;
 		timeOut = false;
@@ -131,5 +133,11 @@ function getQuestion(){
 		var cevaplar = secenekler[chapter];
 		var answerBar = '<div class="answerArea" onclick="chooseAnswer(this)">'+cevaplar[i]+'</div>';
 		$("#bottomArea").append(answerBar);
+	}
+}
+function handler(e){
+    if(e.target.className=="answerArea"){
+		e.stopPropagation();
+		e.preventDefault();
 	}
 }
